@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import styled from "styled-components"
+import AngleVisualizer from "./AngleVisualizer";
 
 import PoseEstimation from "./PoseEstimation";
 
@@ -15,18 +16,21 @@ const Body = styled.div`
 `
 
 export default function CameraSetup() {
-    const [inPosition, setInPosition] = useState(true)
+    const [inPosition, setInPosition] = useState(false)
 
+    const updateInPosition = useCallback((arg) => {
+        setInPosition(arg)
+    }, [inPosition])
 
     return (
         <Body>
             {
                 inPosition ?
-                <div>You're in position</div> :
+                <h1>You're in position</h1> :
                 <div>Move into position</div>
             }
-            <div>this another div</div>
-            <PoseEstimation/>
+            <AngleVisualizer />
+            <PoseEstimation updateInPosition={updateInPosition}/>
         </Body>
     )
 }
